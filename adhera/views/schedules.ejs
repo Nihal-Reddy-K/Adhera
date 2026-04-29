@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adhera Schedules</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <aside class="sidebar">
+    <h1>Adhera</h1>
+    <p>Medication Adherence System</p>
+
+    <nav>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/schedules" class="active">Schedules</a>
+      <a href="/logs">Dose Logs</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">Schedule Management</p>
+        <h2>Medicine Schedules</h2>
+        <p>Create and manage medication timings for the smart box.</p>
+      </div>
+    </section>
+
+    <section class="form-panel">
+      <h3>Add New Schedule</h3>
+
+      <form action="/schedules" method="POST" class="schedule-form">
+
+        <div class="form-group">
+          <label>Device ID</label>
+          <input type="text" name="deviceId" value="demobox01" required>
+        </div>
+
+        <div class="form-group">
+          <label>Medicine Name</label>
+          <input type="text" name="medicineName" placeholder="Example: Paracetamol" required>
+        </div>
+
+        <div class="form-group">
+          <label>Slot</label>
+          <select name="slot" required>
+            <option value="Morning">Morning</option>
+            <option value="Afternoon">Afternoon</option>
+            <option value="Night">Night</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Scheduled Time</label>
+          <input type="time" name="scheduledTime" required>
+        </div>
+
+        <div class="form-group">
+          <label>Dosage</label>
+          <input type="text" name="dosage" placeholder="Example: 1 tablet" required>
+        </div>
+
+        <button class="primary-btn" type="submit">Save Schedule</button>
+
+      </form>
+    </section>
+
+    <section class="panel full-panel">
+      <h3>Existing Schedules</h3>
+
+      <% if (schedules.length === 0) { %>
+        <p class="empty-text">No schedules added yet.</p>
+      <% } else { %>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Slot</th>
+                <th>Time</th>
+                <th>Dosage</th>
+                <th>Device</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% schedules.forEach(schedule => { %>
+                <tr>
+                  <td><%= schedule.medicineName %></td>
+                  <td><%= schedule.slot %></td>
+                  <td><%= schedule.scheduledTime %></td>
+                  <td><%= schedule.dosage %></td>
+                  <td><%= schedule.deviceId %></td>
+                  <td>
+                    <form action="/schedules/<%= schedule._id %>?_method=DELETE" method="POST">
+                      <button class="danger-btn">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+      <% } %>
+    </section>
+
+  </main>
+
+</div>
+
+</body>
+</html>

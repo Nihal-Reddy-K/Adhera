@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adhera Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <aside class="sidebar">
+    <h1>Adhera</h1>
+    <p>Medication Adherence System</p>
+
+    <nav>
+      <a href="/dashboard" class="active">Dashboard</a>
+      <a href="/schedules">Schedules</a>
+      <a href="/logs">Dose Logs</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">IoT Healthcare Dashboard</p>
+        <h2>Smart Medicine Monitoring</h2>
+        <p>Track every dose. Protect every patient.</p>
+      </div>
+
+      <div class="device-pill">
+        Device: demobox01
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span>Total Logs</span>
+        <h3><%= totalLogs %></h3>
+      </div>
+
+      <div class="stat-card success">
+        <span>Taken</span>
+        <h3><%= takenCount %></h3>
+      </div>
+
+      <div class="stat-card danger">
+        <span>Missed</span>
+        <h3><%= missedCount %></h3>
+      </div>
+
+      <div class="stat-card warning">
+        <span>Pending</span>
+        <h3><%= pendingCount %></h3>
+      </div>
+    </section>
+
+    <section class="content-grid">
+
+      <div class="panel">
+        <h3>Adherence Score</h3>
+
+        <div class="score-circle">
+          <%= adherence %>%
+        </div>
+
+        <p>Percentage of doses successfully taken.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Recent Activity</h3>
+          <a href="/logs">View all</a>
+        </div>
+
+        <% if (logs.length === 0) { %>
+          <p class="empty-text">No dose logs yet.</p>
+        <% } else { %>
+          <% logs.forEach(log => { %>
+            <div class="log-row">
+              <div>
+                <strong><%= log.medicineName %></strong>
+                <p><%= log.slot %> • <%= log.scheduledTime %> • <%= log.deviceId %></p>
+              </div>
+
+              <span class="badge <%= log.status.toLowerCase() %>">
+                <%= log.status %>
+              </span>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+</body>
+</html>

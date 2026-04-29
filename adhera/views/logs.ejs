@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adhera Dose Logs</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+  <aside class="sidebar">
+    <h1>Adhera</h1>
+    <p>Medication Adherence System</p>
+
+    <nav>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/schedules">Schedules</a>
+      <a href="/logs" class="active">Dose Logs</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">Medication History</p>
+        <h2>Dose Logs</h2>
+        <p>Track taken, missed, and pending medicine records.</p>
+      </div>
+    </section>
+
+    <section class="form-panel">
+      <h3>Demo Log Entry</h3>
+      <p class="form-note">Use this to test dashboard before ESP32 is connected.</p>
+
+      <form action="/logs/demo" method="POST" class="schedule-form">
+
+        <div class="form-group">
+          <label>Device ID</label>
+          <input type="text" name="deviceId" value="demobox01" required>
+        </div>
+
+        <div class="form-group">
+          <label>Medicine Name</label>
+          <input type="text" name="medicineName" placeholder="Example: Paracetamol" required>
+        </div>
+
+        <div class="form-group">
+          <label>Slot</label>
+          <select name="slot" required>
+            <option value="Morning">Morning</option>
+            <option value="Afternoon">Afternoon</option>
+            <option value="Night">Night</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Scheduled Time</label>
+          <input type="time" name="scheduledTime" required>
+        </div>
+
+        <div class="form-group">
+          <label>Status</label>
+          <select name="status" required>
+            <option value="Taken">Taken</option>
+            <option value="Missed">Missed</option>
+            <option value="Pending">Pending</option>
+          </select>
+        </div>
+
+        <button class="primary-btn" type="submit">Add Demo Log</button>
+
+      </form>
+    </section>
+
+    <section class="panel full-panel">
+      <h3>All Logs</h3>
+
+      <% if (logs.length === 0) { %>
+        <p class="empty-text">No dose logs yet.</p>
+      <% } else { %>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Slot</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Device</th>
+                <th>Logged At</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% logs.forEach(log => { %>
+                <tr>
+                  <td><%= log.medicineName %></td>
+                  <td><%= log.slot %></td>
+                  <td><%= log.scheduledTime %></td>
+                  <td>
+                    <span class="badge <%= log.status.toLowerCase() %>">
+                      <%= log.status %>
+                    </span>
+                  </td>
+                  <td><%= log.deviceId %></td>
+                  <td><%= log.createdAt.toLocaleString() %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+      <% } %>
+    </section>
+
+  </main>
+
+</div>
+
+</body>
+</html>
