@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adhera Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -62,7 +65,7 @@
       <div class="panel">
         <h3>Adherence Score</h3>
 
-        <div class="score-circle">
+        <div class="score-circle" style="background: radial-gradient(circle, #0f172a 58%, transparent 59%), conic-gradient(#5eead4 0deg, #5eead4 <%= (adherence * 3.6) %>deg, rgba(255, 255, 255, 0.12) <%= (adherence * 3.6) %>deg);">
           <%= adherence %>%
         </div>
 
@@ -81,12 +84,12 @@
           <% logs.forEach(log => { %>
             <div class="log-row">
               <div>
-                <strong><%= log.medicineName %></strong>
-                <p><%= log.slot %> • <%= log.scheduledTime %> • <%= log.deviceId %></p>
+                <strong><%= log.medicineName || "Unknown Medicine" %></strong>
+                <p><%= log.slot || "N/A" %> • <%= log.scheduledTime || "N/A" %> • <%= log.deviceId || "demobox01" %></p>
               </div>
 
-              <span class="badge <%= log.status.toLowerCase() %>">
-                <%= log.status %>
+              <span class="badge <%= log.status ? log.status.toLowerCase() : 'pending' %>">
+                <%= log.status || 'Pending' %>
               </span>
             </div>
           <% }) %>

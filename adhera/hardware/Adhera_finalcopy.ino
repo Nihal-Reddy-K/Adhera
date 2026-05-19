@@ -9,12 +9,14 @@ RTC_DS3231 rtc;
 const char* ssid = "Moto_g85";
 const char* password = "hithu_0108";
 
+// Change this to your deployed backend server URL when deploying (e.g. "https://adhera.onrender.com")
 const char* serverBase = "http://10.245.153.43:3000";
 const char* deviceId = "demobox01";
 
-char medicine[20];
-char slot[15];
-char scheduleTime[10];
+// Buffer sizes increased to prevent potential overflow/crashes with long medicine names
+char medicine[64];
+char slot[32];
+char scheduleTime[16];
 int morning_led = 25;
 int afternoon_led = 26;
 int night_led = 27;
@@ -106,13 +108,17 @@ void setup() {
     return;
   }
   JsonObject obj = arr[0];
-  strcpy(medicine, obj["medicineName"]);
-  strcpy(slot, obj["slot"]);
-  String tempTime =obj["scheduledTime"].as<String>();
+  String medStr = obj["medicineName"].as<String>();
+  medStr.toCharArray(medicine, sizeof(medicine));
+  
+  String slotStr = obj["slot"].as<String>();
+  slotStr.toCharArray(slot, sizeof(slot));
+  
+  String tempTime = obj["scheduledTime"].as<String>();
   if (tempTime.length() == 4) {
     tempTime = "0" + tempTime;
   }
-  tempTime.toCharArray(scheduleTime, 10);
+  tempTime.toCharArray(scheduleTime, sizeof(scheduleTime));
   Serial.println("Schedule Loaded");
   Serial.print("Medicine: ");
   Serial.println(medicine);

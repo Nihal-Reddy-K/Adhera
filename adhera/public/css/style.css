@@ -195,9 +195,6 @@ body {
   font-size: 38px;
   font-weight: 700;
   color: #5eead4;
-  background:
-    radial-gradient(circle, #0f172a 58%, transparent 59%),
-    conic-gradient(#5eead4 0deg, #5eead4 260deg, rgba(255,255,255,0.12) 260deg);
 }
 
 .panel p {

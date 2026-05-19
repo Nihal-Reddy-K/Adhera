@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -9,8 +10,9 @@ const DoseLog = require("./models/DoseLog");
 const app = express();
 
 // MongoDB connection
+const mongoURI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/adhera";
 mongoose
-  .connect("mongodb://127.0.0.1:27017/adhera")
+  .connect(mongoURI)
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => console.log("MongoDB connection error:", err));
 
@@ -139,7 +141,7 @@ app.get("/api/device/:deviceId/schedules", async (req, res) => {
     const schedules = await Schedule.find({
       deviceId: req.params.deviceId,
       isActive: true,
-    });
+    }).sort({ createdAt: -1 });
 
     res.json(schedules);
   } catch (err) {
@@ -174,6 +176,7 @@ app.post("/api/device/log", async (req, res) => {
 });
 
 // Server
-app.listen(3000, () => {
-  console.log("Adhera is running on http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Adhera is running on http://localhost:${PORT}`);
 });
