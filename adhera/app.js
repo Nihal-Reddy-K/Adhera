@@ -10,7 +10,7 @@ const DoseLog = require("./models/DoseLog");
 const app = express();
 
 // MongoDB connection
-const mongoURI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/adhera";
+const mongoURI = process.env.MONGODB_URI || process.env.MONGO_URI || "mongodb://127.0.0.1:27017/adhera";
 mongoose
   .connect(mongoURI)
   .then(() => console.log("MongoDB connected successfully"))
