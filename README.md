@@ -2,11 +2,11 @@
 
 Adhera is an IoT-powered healthcare solution designed to track, monitor, and improve patient medication adherence. The system integrates a physical smart pillbox (powered by an ESP32 microcontroller) with a live web-based tracking dashboard.
 
-🚀 **Live Site:** [https://adhera.onrender.com](https://adhera.onrender.com)
+**Live Site:** [https://adhera.onrender.com](https://adhera.onrender.com)
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 * **IoT Dashboard:** Real-time visualization of medication logs, adherence score (percentage of taken vs. missed doses), and active schedules.
 * **Medication Scheduler:** Simple web interface to create, manage, and delete medication routines for patient-specific timings.
@@ -33,7 +33,7 @@ Adhera is an IoT-powered healthcare solution designed to track, monitor, and imp
 
 ---
 
-## 💻 Local Development Setup
+##  Local Development Setup
 
 ### 1. Backend Server Setup
 1. Navigate into the backend directory:
