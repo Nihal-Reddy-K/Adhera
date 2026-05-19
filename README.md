@@ -16,7 +16,7 @@ Adhera is an IoT-powered healthcare solution designed to track, monitor, and imp
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Backend & Frontend Web
 * **Runtime:** Node.js
