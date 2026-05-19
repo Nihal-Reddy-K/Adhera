@@ -76,7 +76,7 @@ Adhera is an IoT-powered healthcare solution designed to track, monitor, and imp
 
 ---
 
-## 🔒 Security & Best Practices
+##  Security & Best Practices
 
 * **Ignored Secrets:** Environment variables containing sensitive database credentials (`.env`) are explicitly ignored by Git (`.gitignore`) to keep production systems secure.
 * **Firmware Safety:** Variable copy operations on the ESP32 utilize bounds-checked string manipulation (`String.toCharArray`) rather than standard C `strcpy` to prevent memory leaks and device crashes.
